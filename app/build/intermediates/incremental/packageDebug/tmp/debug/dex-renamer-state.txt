@@ -1,4 +1,0 @@
-#Fri Aug 04 19:46:55 EAT 2023
-base.0=D\:\\Programs\\MobileExploreMadagascar\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
