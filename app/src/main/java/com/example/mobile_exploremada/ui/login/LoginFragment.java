@@ -98,7 +98,7 @@ public class LoginFragment extends Fragment {
                 } else {
                     // Code d'erreur HTTP, gérer les erreurs
                     //Toast.makeText(requireContext(), "Erreur lors de la connexion", Toast.LENGTH_SHORT).show();
-                    showErrorDialog("Erreur lors de else la connexion : " + response.message());
+                    showErrorDialog("Une erreur s'est produite." + response.toString());
                 }
             }
 
