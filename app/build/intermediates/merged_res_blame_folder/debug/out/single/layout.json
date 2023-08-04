@@ -1,11 +1,27 @@
 [
     {
-        "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\activity_main.xml",
-        "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\activity_main.xml"
-    },
-    {
         "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\card_lieu.xml",
         "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\card_lieu.xml"
+    },
+    {
+        "merged": "com.example.mobile_exploremada.app-mergeDebugResources-32:/layout/fragment_login.xml",
+        "source": "com.example.mobile_exploremada.app-main-35:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\content_main.xml",
+        "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\content_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\fragment_login.xml",
+        "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\fragment_login.xml"
+    },
+    {
+        "merged": "com.example.mobile_exploremada.app-mergeDebugResources-32:/layout/dialog_error.xml",
+        "source": "com.example.mobile_exploremada.app-main-35:/layout/dialog_error.xml"
+    },
+    {
+        "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\activity_main.xml"
     },
     {
         "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\fragment_second.xml",
@@ -26,18 +42,6 @@
     {
         "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\fragment_place.xml",
         "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\fragment_place.xml"
-    },
-    {
-        "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\content_main.xml",
-        "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\content_main.xml"
-    },
-    {
-        "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\fragment_login.xml",
-        "source": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-main-35:\\layout\\fragment_login.xml"
-    },
-    {
-        "merged": "com.example.mobile_exploremada.app-mergeDebugResources-32:/layout/fragment_place.xml",
-        "source": "com.example.mobile_exploremada.app-main-35:/layout/fragment_place.xml"
     },
     {
         "merged": "C:\\Users\\tsior\\.gradle\\daemon\\7.5\\com.example.mobile_exploremada.app-mergeDebugResources-32:\\layout\\fragment_first.xml",

@@ -18,6 +18,7 @@ id action_SecondFragment_to_FirstFragment
 id action_settings
 id appBarLayout
 id bottomNavigationView
+id buttonDismiss
 id buttonLogin
 id button_first
 id button_second
@@ -35,8 +36,11 @@ id nav_graph
 id nav_host_fragment_content_main
 id recyclerView
 id relativeLayout
+id textInputLayoutEmail
+id textInputLayoutPassword
 id textView
 id textViewDescription
+id textViewErrorMessage
 id textViewNom
 id textViewSignUpLink
 id textview_first
@@ -45,6 +49,7 @@ id toolbar
 layout activity_main
 layout card_lieu
 layout content_main
+layout dialog_error
 layout fragment_account
 layout fragment_first
 layout fragment_location

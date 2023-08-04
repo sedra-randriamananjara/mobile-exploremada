@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -14,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.mobile_exploremada.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -26,25 +27,34 @@ public final class FragmentLoginBinding implements ViewBinding {
   public final Button buttonLogin;
 
   @NonNull
-  public final EditText editTextEmail;
+  public final TextInputEditText editTextEmail;
 
   @NonNull
-  public final EditText editTextPassword;
+  public final TextInputEditText editTextPassword;
 
   @NonNull
   public final LinearLayout linearLayout;
 
   @NonNull
+  public final TextInputLayout textInputLayoutEmail;
+
+  @NonNull
+  public final TextInputLayout textInputLayoutPassword;
+
+  @NonNull
   public final TextView textViewSignUpLink;
 
   private FragmentLoginBinding(@NonNull ConstraintLayout rootView, @NonNull Button buttonLogin,
-      @NonNull EditText editTextEmail, @NonNull EditText editTextPassword,
-      @NonNull LinearLayout linearLayout, @NonNull TextView textViewSignUpLink) {
+      @NonNull TextInputEditText editTextEmail, @NonNull TextInputEditText editTextPassword,
+      @NonNull LinearLayout linearLayout, @NonNull TextInputLayout textInputLayoutEmail,
+      @NonNull TextInputLayout textInputLayoutPassword, @NonNull TextView textViewSignUpLink) {
     this.rootView = rootView;
     this.buttonLogin = buttonLogin;
     this.editTextEmail = editTextEmail;
     this.editTextPassword = editTextPassword;
     this.linearLayout = linearLayout;
+    this.textInputLayoutEmail = textInputLayoutEmail;
+    this.textInputLayoutPassword = textInputLayoutPassword;
     this.textViewSignUpLink = textViewSignUpLink;
   }
 
@@ -82,13 +92,13 @@ public final class FragmentLoginBinding implements ViewBinding {
       }
 
       id = R.id.editTextEmail;
-      EditText editTextEmail = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText editTextEmail = ViewBindings.findChildViewById(rootView, id);
       if (editTextEmail == null) {
         break missingId;
       }
 
       id = R.id.editTextPassword;
-      EditText editTextPassword = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText editTextPassword = ViewBindings.findChildViewById(rootView, id);
       if (editTextPassword == null) {
         break missingId;
       }
@@ -99,6 +109,18 @@ public final class FragmentLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.textInputLayoutEmail;
+      TextInputLayout textInputLayoutEmail = ViewBindings.findChildViewById(rootView, id);
+      if (textInputLayoutEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.textInputLayoutPassword;
+      TextInputLayout textInputLayoutPassword = ViewBindings.findChildViewById(rootView, id);
+      if (textInputLayoutPassword == null) {
+        break missingId;
+      }
+
       id = R.id.textViewSignUpLink;
       TextView textViewSignUpLink = ViewBindings.findChildViewById(rootView, id);
       if (textViewSignUpLink == null) {
@@ -106,7 +128,8 @@ public final class FragmentLoginBinding implements ViewBinding {
       }
 
       return new FragmentLoginBinding((ConstraintLayout) rootView, buttonLogin, editTextEmail,
-          editTextPassword, linearLayout, textViewSignUpLink);
+          editTextPassword, linearLayout, textInputLayoutEmail, textInputLayoutPassword,
+          textViewSignUpLink);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
