@@ -13,6 +13,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.mobile_exploremada.R;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -21,6 +22,9 @@ import java.lang.String;
 public final class FragmentPlaceBinding implements ViewBinding {
   @NonNull
   private final CoordinatorLayout rootView;
+
+  @NonNull
+  public final AppBarLayout appBarLayout;
 
   @NonNull
   public final BottomNavigationView bottomNavigationView;
@@ -35,9 +39,11 @@ public final class FragmentPlaceBinding implements ViewBinding {
   public final Toolbar toolbar;
 
   private FragmentPlaceBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull BottomNavigationView bottomNavigationView, @NonNull FrameLayout fragmentContainer,
-      @NonNull ConstraintLayout relativeLayout, @NonNull Toolbar toolbar) {
+      @NonNull AppBarLayout appBarLayout, @NonNull BottomNavigationView bottomNavigationView,
+      @NonNull FrameLayout fragmentContainer, @NonNull ConstraintLayout relativeLayout,
+      @NonNull Toolbar toolbar) {
     this.rootView = rootView;
+    this.appBarLayout = appBarLayout;
     this.bottomNavigationView = bottomNavigationView;
     this.fragmentContainer = fragmentContainer;
     this.relativeLayout = relativeLayout;
@@ -71,6 +77,12 @@ public final class FragmentPlaceBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.appBarLayout;
+      AppBarLayout appBarLayout = ViewBindings.findChildViewById(rootView, id);
+      if (appBarLayout == null) {
+        break missingId;
+      }
+
       id = R.id.bottomNavigationView;
       BottomNavigationView bottomNavigationView = ViewBindings.findChildViewById(rootView, id);
       if (bottomNavigationView == null) {
@@ -95,8 +107,8 @@ public final class FragmentPlaceBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentPlaceBinding((CoordinatorLayout) rootView, bottomNavigationView,
-          fragmentContainer, relativeLayout, toolbar);
+      return new FragmentPlaceBinding((CoordinatorLayout) rootView, appBarLayout,
+          bottomNavigationView, fragmentContainer, relativeLayout, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

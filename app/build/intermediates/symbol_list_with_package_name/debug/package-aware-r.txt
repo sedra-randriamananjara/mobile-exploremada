@@ -2640,6 +2640,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id appBarLayout
 id arc
 id asConfigured
 id async
@@ -2762,6 +2763,7 @@ id fragment_container_view_tag
 id frost
 id ghost_view
 id ghost_view_holder
+id glide_custom_view_target_tag
 id gone
 id graph
 id graph_wrap
@@ -2781,6 +2783,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageViewMiniature
 id immediateStop
 id included
 id info
@@ -2915,6 +2918,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recyclerView
 id relativeLayout
 id reverseSawtooth
 id right
@@ -3013,6 +3017,8 @@ id textSpacerNoTitle
 id textStart
 id textTop
 id textView
+id textViewDescription
+id textViewNom
 id textViewSignUpLink
 id text_input_end_icon
 id text_input_error_icon
@@ -3151,6 +3157,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout card_lieu
 layout content_main
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -3170,6 +3177,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_account
 layout fragment_first
+layout fragment_location
 layout fragment_login
 layout fragment_place
 layout fragment_second

@@ -16,6 +16,7 @@ id SecondFragment
 id action_FirstFragment_to_SecondFragment
 id action_SecondFragment_to_FirstFragment
 id action_settings
+id appBarLayout
 id bottomNavigationView
 id buttonLogin
 id button_first
@@ -23,6 +24,7 @@ id button_second
 id editTextEmail
 id editTextPassword
 id fragment_container
+id imageViewMiniature
 id linearLayout
 id menu_compte
 id menu_decouvrir
@@ -31,16 +33,21 @@ id menu_lieu
 id menu_recherche
 id nav_graph
 id nav_host_fragment_content_main
+id recyclerView
 id relativeLayout
 id textView
+id textViewDescription
+id textViewNom
 id textViewSignUpLink
 id textview_first
 id textview_second
 id toolbar
 layout activity_main
+layout card_lieu
 layout content_main
 layout fragment_account
 layout fragment_first
+layout fragment_location
 layout fragment_login
 layout fragment_place
 layout fragment_second
