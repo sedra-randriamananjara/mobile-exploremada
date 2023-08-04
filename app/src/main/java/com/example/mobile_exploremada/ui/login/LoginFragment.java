@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mobile_exploremada.R;
+import com.example.mobile_exploremada.helper.NotificationHelper;
 import com.example.mobile_exploremada.models.LoginModel;
 import com.example.mobile_exploremada.request.AuthRequest;
 import com.example.mobile_exploremada.request.Servicey;
@@ -87,6 +88,7 @@ public class LoginFragment extends Fragment {
                             String token = authResponse.getData();
                             Toast.makeText(requireContext(), "token : "+token, Toast.LENGTH_SHORT).show();
                             // Faites ce que vous voulez avec le token ici
+                            showNotification();
                             loadPlaceFragment();
                         } else {
                             // Afficher le message d'erreur en cas d'échec
@@ -130,5 +132,13 @@ public class LoginFragment extends Fragment {
     private void loadRegistrationFragment() {
         // Charger le fragment de la page d'inscription
         // Utilisez la même méthode loadRegistrationFragment() que dans l'exemple précédent
+    }
+
+    private void showNotification() {
+        String title = "Allons decouvrir Madagascar";
+        String text = "Bonjour, Bienvenue parmis nous.";
+
+        // Show the notification using NotificationHelper
+        NotificationHelper.showNotification(requireContext(), title, text);
     }
 }
