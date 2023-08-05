@@ -126,8 +126,8 @@ public class LocationFragment extends Fragment {
             @Override
             public void onResponse(Call<LieuResponse> call, Response<LieuResponse> response) {
                 if(response.code() == 200){
-                    Log.v("Tag", "the response" + response.body().toString());
-                    Toast.makeText(getActivity(), "the response" + response.body().toString(), Toast.LENGTH_LONG).show();
+                    //Log.v("Tag", "the response" + response.body().toString());
+                    //Toast.makeText(getActivity(), "the response" + response.body().toString(), Toast.LENGTH_LONG).show();
                     List<LieuModel> lieus = new ArrayList<>(response.body().getLieu());
                     lieuAdapter.setLieux(lieus);
 

@@ -1,6 +1,8 @@
 package com.example.mobile_exploremada.ui.login;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.example.mobile_exploremada.request.AuthRequest;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.ui.place.PlaceFragment;
 import com.example.mobile_exploremada.utils.LoginService;
+import com.example.mobile_exploremada.utils.PreferenceManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +45,12 @@ public class LoginFragment extends Fragment {
         EditText passwordEditText = view.findViewById(R.id.editTextPassword);
         loginButton = view.findViewById(R.id.buttonLogin);
         TextView signUpLink = view.findViewById(R.id.textViewSignUpLink);
+
+        String authToken = getTokenFromSharedPreferences();
+        if (!authToken.isEmpty()) {
+            // Un token est déjà présent, rediriger directement vers PlaceFragment
+            loadPlaceFragment();
+        }
 
         // Définir le clic du bouton de connexion
         loginButton.setOnClickListener(v -> {
@@ -86,6 +95,8 @@ public class LoginFragment extends Fragment {
                         if ("ok".equalsIgnoreCase(authResponse.getStatue())) {
                             // Authentification réussie, le token est dans authResponse.getData()
                             String token = authResponse.getData();
+                            Servicey.addAuthInterceptor(requireContext(),token,requireActivity().getSupportFragmentManager());
+                            saveTokenToSharedPreferences(token);
                             Toast.makeText(requireContext(), "token : "+token, Toast.LENGTH_SHORT).show();
                             // Faites ce que vous voulez avec le token ici
                             showNotification();
@@ -141,4 +152,16 @@ public class LoginFragment extends Fragment {
         // Show the notification using NotificationHelper
         NotificationHelper.showNotification(requireContext(), title, text);
     }
+
+    private void saveTokenToSharedPreferences(String token) {
+        SharedPreferences preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("token", token);
+        editor.apply();
+    }
+
+    private String getTokenFromSharedPreferences() {
+        return PreferenceManager.getToken(requireContext());
+    }
+
 }
