@@ -6,9 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.mobile_exploremada.ui.splashscreen.SplashFragment;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
         }else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
+
+        String languagePreference = sharedPreferences.getString("language_preference", "");
+        Locale locale = new Locale(languagePreference);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(locale);
+        }
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
 
         super.onCreate(savedInstanceState);

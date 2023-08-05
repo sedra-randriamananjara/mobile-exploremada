@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">mobile-exploremada</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Parametres</string>
+    <string name="action_logout">Deconnexion</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -18,5 +19,16 @@
     <string-array name="theme_values">
         <item>light</item>
         <item>dark</item>
+    </string-array>
+    <string-array name="language_entries">
+        <item>English</item>
+        <item>Français</item>
+        <!-- Ajoutez d'autres langues ici si nécessaire -->
+    </string-array>
+
+    <string-array name="language_values">
+        <item>en</item>
+        <item>fr</item>
+        <!-- Utilisez les mêmes codes de langue que vous avez utilisés dans le code précédent -->
     </string-array>
 </resources>

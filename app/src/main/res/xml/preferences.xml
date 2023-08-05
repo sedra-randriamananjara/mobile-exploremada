@@ -8,4 +8,12 @@
         android:dialogTitle="Select Theme"
         android:entries="@array/theme_entries"
         android:entryValues="@array/theme_values" />
+
+    <ListPreference
+        android:key="language_preference"
+        android:title="App Language"
+        android:summary="Choose the app language"
+        android:dialogTitle="Select Language"
+        android:entries="@array/language_entries"
+        android:entryValues="@array/language_values" />
 </PreferenceScreen>
