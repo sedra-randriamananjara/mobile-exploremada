@@ -15,9 +15,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mobile_exploremada.R;
+import com.example.mobile_exploremada.models.MeModel;
 import com.example.mobile_exploremada.models.UserData;
 import com.example.mobile_exploremada.models.UserModel;
 import com.example.mobile_exploremada.request.Servicey;
+import com.example.mobile_exploremada.response.MeResponse;
 import com.example.mobile_exploremada.ui.login.LoginFragment;
 import com.example.mobile_exploremada.ui.preference.PreferencesFragment;
 import com.example.mobile_exploremada.utils.LoginService;
@@ -29,10 +31,14 @@ import retrofit2.Response;
 public class AccountFragment extends Fragment {
 
 
+    TextView userDataEmail,userDataContact;
+            
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         TextView userDataTextView = view.findViewById(R.id.userDataTextView);
+        userDataEmail = view.findViewById(R.id.userDataEmail);
+        userDataContact = view.findViewById(R.id.userDataContact);
         Button btnPreferences = view.findViewById(R.id.btn_preferences);
         Button btnLogout = view.findViewById(R.id.btn_logout);
         fetchUserData(userDataTextView);
@@ -72,24 +78,24 @@ public class AccountFragment extends Fragment {
         Servicey.addAuthInterceptor(requireContext(),authToken,requireActivity().getSupportFragmentManager());
 
         LoginService api = Servicey.getLoginService();
-        Call<UserModel> call = api.getUserData();
+        Call<MeResponse> call = api.getUserData();
 
-        call.enqueue(new Callback<UserModel>() {
+        call.enqueue(new Callback<MeResponse>() {
             @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+            public void onResponse(Call<MeResponse> call, Response<MeResponse> response) {
                 if (response.isSuccessful()) {
-                    UserModel userData = response.body();
-                    if (userData != null && "ok".equalsIgnoreCase(userData.getStatue())) {
+                    MeResponse userData = response.body();
+                    if (userData != null && "ok".equalsIgnoreCase(response.body().getStatue())) {
                         // Afficher les données de l'utilisateur dans le fragment
-                        String message = userData.getMessage();
-                        int data = userData.getData();
+                        MeModel me = userData.getMe();
                         //Toast.makeText(requireContext(), data, Toast.LENGTH_SHORT).show();
-                        String userDataStr = "Message: " + message + "Data: " + data;
 //                        Log.v("Tag", userDataStr);
                         //Toast.makeText(requireContext(), userDataStr, Toast.LENGTH_SHORT).show();
 
                         //Log.d("LocationFragment", "Updating TextView with userDataStr: " + userDataStr);
-                        userDataTextView.setText(userDataStr);
+                        userDataTextView.setText(me.getNom());
+                        userDataEmail.setText(me.getEmail());
+                        userDataContact.setText(me.getContact());
                     } else {
                         // Afficher un message d'erreur en cas d'échec
                         String errorMessage = "Erreur lors de la récupération des données de l'utilisateur.";
@@ -103,7 +109,7 @@ public class AccountFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
+            public void onFailure(Call<MeResponse> call, Throwable t) {
                 // Afficher un message d'erreur en cas d'échec de la requête
                 String errorMessage = "Erreur réseau : " + t.toString();
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
