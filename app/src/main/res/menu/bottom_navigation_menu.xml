@@ -6,18 +6,18 @@
         android:title="Lieu" />
     <item
         android:id="@+id/menu_recherche"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/baseline_search_24"
         android:title="Recherche" />
     <item
         android:id="@+id/menu_decouvrir"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/baseline_explore_24"
         android:title="Découvrir" />
     <item
         android:id="@+id/menu_favoris"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/baseline_favorite_24"
         android:title="Favoris" />
     <item
         android:id="@+id/menu_compte"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/baseline_account_circle_24"
         android:title="Compte" />
 </menu>
