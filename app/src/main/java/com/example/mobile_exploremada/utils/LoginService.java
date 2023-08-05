@@ -1,7 +1,7 @@
 package com.example.mobile_exploremada.utils;
 
 import com.example.mobile_exploremada.models.LoginModel;
-import com.example.mobile_exploremada.models.UserData;
+import com.example.mobile_exploremada.models.UserModel;
 import com.example.mobile_exploremada.request.AuthRequest;
 
 import retrofit2.Call;
@@ -14,5 +14,5 @@ public interface LoginService {
     Call<LoginModel> authenticate(@Body AuthRequest authRequest);
 
     @GET("auth/me")
-    Call<UserData> getUserData();
+    Call<UserModel> getUserData();
 }

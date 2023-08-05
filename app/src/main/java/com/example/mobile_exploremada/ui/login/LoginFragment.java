@@ -23,6 +23,7 @@ import com.example.mobile_exploremada.models.LoginModel;
 import com.example.mobile_exploremada.request.AuthRequest;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.ui.place.PlaceFragment;
+import com.example.mobile_exploremada.ui.splashscreen.login.ui.login.RegisterFragment;
 import com.example.mobile_exploremada.utils.LoginService;
 import com.example.mobile_exploremada.utils.PreferenceManager;
 
@@ -141,9 +142,11 @@ public class LoginFragment extends Fragment {
         fragmentTransaction.commit();
     }
     private void loadRegistrationFragment() {
-        // Charger le fragment de la page d'inscription
-        // Utilisez la même méthode loadRegistrationFragment() que dans l'exemple précédent
-    }
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        RegisterFragment registerFragment = new RegisterFragment();
+        fragmentTransaction.replace(R.id.fragment_container, registerFragment);
+        fragmentTransaction.commit();  }
 
     private void showNotification() {
         String title = "Allons decouvrir Madagascar";

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.models.UserData;
+import com.example.mobile_exploremada.models.UserModel;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.ui.login.LoginFragment;
 import com.example.mobile_exploremada.ui.preference.PreferencesFragment;
@@ -71,13 +72,13 @@ public class AccountFragment extends Fragment {
         Servicey.addAuthInterceptor(requireContext(),authToken,requireActivity().getSupportFragmentManager());
 
         LoginService api = Servicey.getLoginService();
-        Call<UserData> call = api.getUserData();
+        Call<UserModel> call = api.getUserData();
 
-        call.enqueue(new Callback<UserData>() {
+        call.enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 if (response.isSuccessful()) {
-                    UserData userData = response.body();
+                    UserModel userData = response.body();
                     if (userData != null && "ok".equalsIgnoreCase(userData.getStatue())) {
                         // Afficher les données de l'utilisateur dans le fragment
                         String message = userData.getMessage();
@@ -102,7 +103,7 @@ public class AccountFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 // Afficher un message d'erreur en cas d'échec de la requête
                 String errorMessage = "Erreur réseau : " + t.toString();
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();

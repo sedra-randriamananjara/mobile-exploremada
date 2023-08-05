@@ -1,37 +1,66 @@
 package com.example.mobile_exploremada.models;
-
 public class UserData {
-    private String statue;
-    private String message;
-    private int data;
+    private int id;
+    private String nom;
+    private String email;
+    private String motdepasse;
+    private int id_langue;
+    private String contact;
 
-    public UserData(String statue, String message, int data) {
-        this.statue = statue;
-        this.message = message;
-        this.data = data;
+    public UserData(int id, String nom, String email, String motdepasse, int id_langue, String contact) {
+        this.id = id;
+        this.nom = nom;
+        this.email = email;
+        this.motdepasse = motdepasse;
+        this.id_langue = id_langue;
+        this.contact = contact;
     }
 
-    public String getStatue() {
-        return statue;
+    public int getId() {
+        return id;
     }
 
-    public void setStatue(String statue) {
-        this.statue = statue;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getNom() {
+        return nom;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public int getData() {
-        return data;
+    public String getEmail() {
+        return email;
     }
 
-    public void setData(int data) {
-        this.data = data;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMotdepasse() {
+        return motdepasse;
+    }
+
+    public void setMotdepasse(String motdepasse) {
+        this.motdepasse = motdepasse;
+    }
+
+    public int getId_langue() {
+        return id_langue;
+    }
+
+    public void setId_langue(int id_langue) {
+        this.id_langue = id_langue;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }
