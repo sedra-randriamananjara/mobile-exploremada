@@ -43,9 +43,9 @@ public class Servicey {
         httpClientBuilder.addInterceptor(interceptor);
         retrofitBuilder.client(httpClientBuilder.build());
         retrofit = retrofitBuilder.build();
+    }
 
     public static RegisterService getRegisterService(){
         return retrofit.create(RegisterService.class);
-
     }
 }
