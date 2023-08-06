@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.models.LieuModel;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.response.LieuResponse;
+import com.example.mobile_exploremada.ui.splashscreen.login.ui.login.RegisterFragment;
 import com.example.mobile_exploremada.utils.LieuApi;
 
 import java.io.IOException;
@@ -93,7 +96,9 @@ public class LocationFragment extends Fragment {
             Glide.with(holder.itemView.getContext())
                     .load(BASE_URL + "uploads/lieu/" + lieu.getImage_miniature())
                     .into(holder.imageView);
-            // Chargez l'image miniature ici (à l'aide de Glide ou Picasso par exemple)
+            holder.itemView.setOnClickListener(v -> {
+                loadLieuDetailsFragment(lieu.getId());
+            });
         }
 
         @Override
@@ -114,6 +119,13 @@ public class LocationFragment extends Fragment {
                 imageView = itemView.findViewById(R.id.imageViewMiniature);
             }
         }
+        private void loadLieuDetailsFragment(int idlieu) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
+            fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
+            fragmentTransaction.commit();  }
+
     }
 
     private void GetRetrofitResponse() {

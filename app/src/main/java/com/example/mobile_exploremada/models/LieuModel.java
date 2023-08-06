@@ -9,6 +9,7 @@ public class LieuModel implements Parcelable {
     //Lieu Model
     private int id;
     private String nom;
+
     private String description_courte;
     private String image_miniature;
     private int id_type_lieu;
@@ -16,7 +17,13 @@ public class LieuModel implements Parcelable {
     private int id_ville;
     private String nom_ville;
 
-    public LieuModel(int id, String nom, String description_courte, String image_miniature, int id_type_lieu, String nom_typelieu, int id_ville, String nom_ville) {
+    private String description_longue;
+    private String heure_ouverture;
+    private String frais_entree;
+    private String contact;
+    private String image_detail;
+
+    public LieuModel(int id, String nom, String description_courte, String image_miniature, int id_type_lieu, String nom_typelieu, int id_ville, String nom_ville, String description_longue, String heure_ouverture, String frais_entree, String contact, String image_detail) {
         this.id = id;
         this.nom = nom;
         this.description_courte = description_courte;
@@ -25,6 +32,11 @@ public class LieuModel implements Parcelable {
         this.nom_typelieu = nom_typelieu;
         this.id_ville = id_ville;
         this.nom_ville = nom_ville;
+        this.description_longue = description_longue;
+        this.heure_ouverture = heure_ouverture;
+        this.frais_entree = frais_entree;
+        this.contact = contact;
+        this.image_detail = image_detail;
     }
 
     protected LieuModel(Parcel in) {
@@ -80,6 +92,46 @@ public class LieuModel implements Parcelable {
 
     public String getNom_ville() {
         return nom_ville;
+    }
+
+    public String getDescription_longue() {
+        return description_longue;
+    }
+
+    public void setDescription_longue(String description_longue) {
+        this.description_longue = description_longue;
+    }
+
+    public String getHeure_ouverture() {
+        return heure_ouverture;
+    }
+
+    public void setHeure_ouverture(String heure_ouverture) {
+        this.heure_ouverture = heure_ouverture;
+    }
+
+    public String getFrais_entree() {
+        return frais_entree;
+    }
+
+    public void setFrais_entree(String frais_entree) {
+        this.frais_entree = frais_entree;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getImage_detail() {
+        return image_detail;
+    }
+
+    public void setImage_detail(String image_detail) {
+        this.image_detail = image_detail;
     }
 
     @Override
