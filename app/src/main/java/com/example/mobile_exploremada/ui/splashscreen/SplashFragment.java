@@ -31,15 +31,15 @@ public class SplashFragment extends Fragment {
         lottieAnimationView = view.findViewById(R.id.lottie);
 
 
-        splashImg.animate().translationY(-1600).setDuration(8000).setStartDelay(8000);
-        logo.animate().translationY(1400).setDuration(8000).setStartDelay(8000);
-        appName.animate().translationY(1400).setDuration(8000).setStartDelay(8000);
+        splashImg.animate().translationY(-1600).setDuration(5000).setStartDelay(5000);
+        logo.animate().translationY(1400).setDuration(5000).setStartDelay(5000);
+        appName.animate().translationY(1400).setDuration(5000).setStartDelay(5000);
         lottieAnimationView.setRepeatCount(ValueAnimator.INFINITE);
 
 
 
 
-        new Handler().postDelayed(this::loadLoginFragment, 8000);
+        new Handler().postDelayed(this::loadLoginFragment, 5000);
         return view;
     }
 

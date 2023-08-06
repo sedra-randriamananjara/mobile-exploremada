@@ -28,11 +28,11 @@ public class Lieu_videoModel {
         this.id_lieu = id_lieu;
     }
 
-    public String getvideo() {
+    public String getVideo() {
         return video;
     }
 
-    public void setvideo(String video) {
+    public void setVideo(String video) {
         this.video = video;
     }
 }

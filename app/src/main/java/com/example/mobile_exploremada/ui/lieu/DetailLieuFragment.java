@@ -2,6 +2,7 @@ package com.example.mobile_exploremada.ui.lieu;
 
 import static com.example.mobile_exploremada.utils.Credentials.BASE_URL;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.media.MediaPlayer;
 public class DetailLieuFragment extends Fragment {
     private int idLieu;
     private Runnable runnable;
@@ -50,6 +53,7 @@ public class DetailLieuFragment extends Fragment {
     private TextView heureOuvertureDetailView;
 
     private TextView ContactDetailView;
+    private VideoView VideoDetailVideoView;
 
     private TextView Frais_EntreeView;
     public DetailLieuFragment(int idLieu) {
@@ -75,11 +79,8 @@ public class DetailLieuFragment extends Fragment {
         heureOuvertureDetailView = view.findViewById(R.id.heureOuvertureDetail);
         Frais_EntreeView = view.findViewById(R.id.textViewFrais_Entree);
         interludeView= view.findViewById(R.id.textViewInterlude);
-        final TextView descriptionHeader = view.findViewById(R.id.textViewDescriptionHeader);
-        final TextView informationHeader =view.findViewById(R.id.textViewInfoHeader);
-        description(view,descriptionHeader);
-        information(view,informationHeader);
-        getDetailLieu(view,idLieu);
+        VideoDetailVideoView= view.findViewById(R.id.videoView);
+                getDetailLieu(view,idLieu);
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -96,19 +97,33 @@ public class DetailLieuFragment extends Fragment {
             @Override
             public void onResponse(Call<DetailLieuResponse> call, Response<DetailLieuResponse> response) {
                 if(response.code() == 200){
-                   LieuModel  lieu = response.body().getDetailLieu();
+                    LieuModel  lieu = response.body().getDetailLieu();
+                    String contact= "Contact: ";
+                    String heureOuverture="heure d'ouverture : ";
+                    String fraisEntree="Frais d'entrée : ";
+                    if( lieu.getContact()!=null){
+                        contact+=lieu.getContact();
+                    }
+                    if( lieu.getFrais_entree()!=null){
+                        fraisEntree+=lieu.getFrais_entree();
+                    }
+
+                    if( lieu.getHeure_ouverture()!=null){
+                        heureOuverture+=lieu.getHeure_ouverture();
+                    }
                     nomLieuTextView.setText(lieu.getNom());
                     descriptionCourteTextView.setText(lieu.getDescription_courte());                    miniatureImageView = view.findViewById(R.id.imageViewMiniatureDetail);
-                    typeLieuTextView.setText("types: "+lieu.getNom_typelieu());
-                    ContactDetailView.setText("Contact: "+ lieu.getContact());
-                    descriptionLongueDetailView.setText( lieu.getDescription_longue());
-                    heureOuvertureDetailView.setText("ouvert à :" +lieu.getHeure_ouverture());
-                    Frais_EntreeView.setText("Frais d'entrée :" +lieu.getFrais_entree());
+                    typeLieuTextView.setText(lieu.getNom_typelieu());
+                    ContactDetailView.setText(contact);
+                    descriptionLongueDetailView.setText("Description: \n" +lieu.getDescription_longue());
+                    heureOuvertureDetailView.setText(heureOuverture);
+                    Frais_EntreeView.setText(fraisEntree);
                     Glide.with(view.getContext())
                             .load(BASE_URL + "uploads/lieu/" + lieu.getImage_miniature())
                             .into(miniatureImageView);
-                    interludeView.setText("Voici un apercu du site :" +lieu.getNom());
+                    interludeView.setText("Voici une apercue du site :" );
                     SetImageDetail(idLieu);
+                    SetVideoDetail(idLieu);
                     }
                 }
             @Override
@@ -119,43 +134,14 @@ public class DetailLieuFragment extends Fragment {
 
         });
     }
-    private void description(View view,TextView descriptionHeader){
-        descriptionHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (descriptionLongueDetailView.getVisibility() == View.GONE) {
-                    descriptionLongueDetailView.setVisibility(View.VISIBLE);
-                } else {
-                    descriptionLongueDetailView.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
+
     private void loadPrecedent() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         PlaceFragment PlaceFragment = new PlaceFragment();
         fragmentTransaction.replace(R.id.fragment_container, PlaceFragment);
         fragmentTransaction.commit();  }
-    private void information(View view,TextView informationHeader){
-        informationHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (heureOuvertureDetailView.getVisibility() == View.GONE) {
-                    Frais_EntreeView.setVisibility(View.VISIBLE);
-                    typeLieuTextView.setVisibility(View.VISIBLE);
-                    ContactDetailView.setVisibility(View.VISIBLE);
-                    heureOuvertureDetailView.setVisibility(View.VISIBLE);
-                } else {
-                    heureOuvertureDetailView.setVisibility(View.GONE);
-                    Frais_EntreeView.setVisibility(View.GONE);
-                    typeLieuTextView.setVisibility(View.GONE);
-                    ContactDetailView.setVisibility(View.GONE);
-                    heureOuvertureDetailView.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
+
 
     private void SetImageDetail(int idLieu) {
         LieuApi lieuApi = Servicey.getLieuApi();
@@ -173,30 +159,74 @@ public class DetailLieuFragment extends Fragment {
                             image.add(lieu_image.getImage());
                         }
                     }
-                    if(image.isEmpty()){
-
-                    }else{
-                    runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            Picasso.get().load(BASE_URL + "uploads/lieu/" + image.get(index)).into(imageDetailImageView);
-                            index = (index + 1) % image.size();
-                            handler.postDelayed(this, 3000);
-                        }
-                    };
-                    handler.post(runnable);
+                    if (image.isEmpty()) {
+                        imageDetailImageView.setVisibility(View.GONE);
+                        interludeView.setVisibility(View.GONE);
+                    } else {
+                        runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                Picasso.get().load(BASE_URL + "uploads/lieu/" + image.get(index)).into(imageDetailImageView);
+                                index = (index + 1) % image.size();
+                                handler.postDelayed(this, 3000);
+                            }
+                        };
+                        handler.post(runnable);
+                    }
                 }
-                }
-
             }
-                @Override
-                public void onFailure(Call<Lieu_imageResponse> call, Throwable t) {
-                    Toast.makeText(getActivity(), "Error" + t.toString(), Toast.LENGTH_LONG).show();
-                    Log.v("Tag","Error" +t.toString());
-                }
 
-    });
-}
+            @Override
+            public void onFailure(Call<Lieu_imageResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Error" + t.toString(), Toast.LENGTH_LONG).show();
+                Log.v("Tag", "Error" + t.toString());
+            }
+        });
+    }
+
+            private void SetVideoDetail(int idLieu) {
+                LieuApi lieuApi = Servicey.getLieuApi();
+
+                Call<Lieu_videoResponse> Lieu_videoResponse = lieuApi
+                        .getLieu_video();
+                Lieu_videoResponse.enqueue(new Callback<Lieu_videoResponse>() {
+                    @Override
+                    public void onResponse(Call<Lieu_videoResponse> call, Response<Lieu_videoResponse> response) {
+                        if (response.code() == 200) {
+                            List<Lieu_videoModel> lieu_Videos = new ArrayList<>(response.body().getLieu_video());
+                            List<String> Video = new ArrayList<>();
+                            for (Lieu_videoModel lieu_Video : lieu_Videos) {
+                                if (lieu_Video.getId_lieu() == idLieu) {
+                                    Video.add(lieu_Video.getVideo());
+                                }
+                            }
+                            if(Video.isEmpty()){
+                                VideoDetailVideoView.setVisibility(View.GONE);
+                           }else{
+
+                                String videoPath =BASE_URL + "uploads/video/" + Video.get(0) ;
+                                Uri videoUri = Uri.parse(videoPath);
+                                VideoDetailVideoView.setVideoURI(videoUri);
+                                VideoDetailVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mediaPlayer) {
+                                        mediaPlayer.start();
+                                    }
+                                });
+                                VideoDetailVideoView.start();
+                            }
+
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<Lieu_videoResponse> call, Throwable t) {
+                        Toast.makeText(getActivity(), "Error" + t.toString(), Toast.LENGTH_LONG).show();
+                        Log.v("Tag", "Error" + t.toString());
+                    }
+                });
+            }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
