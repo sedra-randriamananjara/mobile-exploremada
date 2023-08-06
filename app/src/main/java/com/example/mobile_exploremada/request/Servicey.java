@@ -48,4 +48,8 @@ public class Servicey {
     public static RegisterService getRegisterService(){
         return retrofit.create(RegisterService.class);
     }
+
+    public static ImageService getImageService(){
+        return retrofit.create(ImageService.class);
+    }
 }
