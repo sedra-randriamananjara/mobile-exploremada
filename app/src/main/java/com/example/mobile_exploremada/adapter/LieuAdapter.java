@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mobile_exploremada.ui.lieu.DetailLieuFragment;
+
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,10 +27,17 @@ public class LieuAdapter extends RecyclerView.Adapter<LieuAdapter.LieuViewHolder
 
     private List<LieuModel> lieux;
     private LayoutInflater inflater;
+    private FragmentManager fragmentManager;
 
     public LieuAdapter(Context context) {
         this.lieux = new ArrayList<>();
         this.inflater = LayoutInflater.from(context);
+    }
+
+    public LieuAdapter(Context context, FragmentManager fragmentManager) {
+        this.lieux = new ArrayList<>();
+        this.inflater = LayoutInflater.from(context);
+        this.fragmentManager = fragmentManager;
     }
 
     public void setLieux(List<LieuModel> lieux) {
@@ -59,8 +70,18 @@ public class LieuAdapter extends RecyclerView.Adapter<LieuAdapter.LieuViewHolder
             holder.textViewDescription.setText(lieu.getDescription_courte());
             holder.textViewTypeLieu.setText(lieu.getNom_typelieu());
             holder.textViewVille.setText(lieu.getNom_ville());
+            holder.itemView.setOnClickListener(v -> {
+                loadLieuDetailsFragment(lieu.getId());
+            });
         }
     }
+
+    private void loadLieuDetailsFragment(int idlieu) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
+        fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
+        fragmentTransaction.commit();  }
+
 
     @Override
     public int getItemCount() {
