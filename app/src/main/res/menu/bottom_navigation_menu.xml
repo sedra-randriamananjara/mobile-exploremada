@@ -14,8 +14,8 @@
         android:title="Découvrir" />
     <item
         android:id="@+id/menu_favoris"
-        android:icon="@drawable/baseline_favorite_24"
-        android:title="Favoris" />
+        android:icon="@drawable/baseline_slow_motion_video_24"
+        android:title="Video" />
     <item
         android:id="@+id/menu_compte"
         android:icon="@drawable/baseline_account_circle_24"

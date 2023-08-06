@@ -59,7 +59,7 @@ public class FavoritesFragment extends Fragment {
                     if (lieuVideoList != null && !lieuVideoList.isEmpty()) {
                         for (LieuVideoModel lieuVideo : lieuVideoList) {
                             Log.v("Tag","Video" + lieuVideo.getVideo());
-//                            tvName.setText(lieuVideo.getId_lieu());
+                           tvName.setText(String.valueOf(lieuVideo.getId_lieu()));
                             MediaController mediaController = new MediaController(getContext());
                             mediaController.setAnchorView(videoView);
                             videoView.setMediaController(mediaController);

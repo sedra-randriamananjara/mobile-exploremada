@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_background">#FFFFFF</color>
     <color name="dark_background">#1A1A1A</color>
+    <color name="foret">#281A15</color>
+    <color name="foret_variant">#8D5931</color>
+    <color name="red">#FC3D32</color>
+    <color name="vert">#007E3A</color>
 </resources>
