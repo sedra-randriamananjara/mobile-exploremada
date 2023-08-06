@@ -52,4 +52,8 @@ public class Servicey {
     public static ImageService getImageService(){
         return retrofit.create(ImageService.class);
     }
+
+    public static VideoService getVideoService(){
+        return retrofit.create(VideoService.class);
+    }
 }
