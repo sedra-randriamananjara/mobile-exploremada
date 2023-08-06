@@ -30,65 +30,63 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DiscoverFragment extends Fragment {
-public class DiscoverFragment extends Fragment  {
-    private GridView gridView;
-    private ImageAdapter imageAdapter;
+        private GridView gridView;
+        private ImageAdapter imageAdapter;
 
 
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_image_grid, container, false);
+            gridView = view.findViewById(R.id.grid_view);
+            imageAdapter = new ImageAdapter(getActivity());
+            gridView.setAdapter(imageAdapter);
+            loadImagesFromApi();
+            gridView.setOnItemClickListener((parent, view1, position, id) -> {
+                ImageModel clickedImage = imageAdapter.getItem(position);
+                loadLieuDetailsFragment(clickedImage.getId());
+            });
+            return view;
+        }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_image_grid, container, false);
-        gridView = view.findViewById(R.id.grid_view);
-        imageAdapter = new ImageAdapter(getActivity());
-        gridView.setAdapter(imageAdapter);
-        loadImagesFromApi();
-        gridView.setOnItemClickListener((parent, view1, position, id) -> {
-            ImageModel clickedImage = imageAdapter.getItem(position);
-            loadLieuDetailsFragment(clickedImage.getId());
-          });
-          return view;
-    }
+        private void loadImagesFromApi() {
 
-    private void loadImagesFromApi() {
+            ImageService apiService = Servicey.getImageService();
+            Call<ImageResponse> call = apiService.getImages();
 
-        ImageService apiService = Servicey.getImageService();
-        Call<ImageResponse> call = apiService.getImages();
-
-        call.enqueue(new Callback<ImageResponse>() {
-            @Override
-            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
-                if (response.code() == 200) {
-                    List<ImageModel> imageDataList = new ArrayList<>(response.body().getMe());
-                    if (imageDataList != null) {
-                        imageAdapter.setImageDataList(imageDataList);
+            call.enqueue(new Callback<ImageResponse>() {
+                @Override
+                public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                    if (response.code() == 200) {
+                        List<ImageModel> imageDataList = new ArrayList<>(response.body().getMe());
+                        if (imageDataList != null) {
+                            imageAdapter.setImageDataList(imageDataList);
+                        }
+                        for (ImageModel img : imageDataList) {
+                            Log.v("Tag", "The list" + img.getImage());
+                        }
+                    } else {
+                        // Gérer les erreurs en cas de réponse non réussie
+                        Log.v("Tag", "Error" + response.errorBody().toString());
+                        Toast.makeText(getActivity(), "Error else exception" + response.errorBody().toString(), Toast.LENGTH_LONG).show();
                     }
-                    for (ImageModel img: imageDataList){
-                        Log.v("Tag","The list" +img.getImage());
-                    }
-                } else {
-                    // Gérer les erreurs en cas de réponse non réussie
-                    Log.v("Tag","Error" + response.errorBody().toString());
-                    Toast.makeText(getActivity(), "Error else exception" + response.errorBody().toString(), Toast.LENGTH_LONG).show();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ImageResponse> call, Throwable t) {
-                // Gérer les erreurs en cas d'échec de l'appel
-                Log.e("Tag", "Error onFailure: " + t.toString());
-                Toast.makeText(getActivity(), "Error: " + t.toString(), Toast.LENGTH_LONG).show();
+                @Override
+                public void onFailure(Call<ImageResponse> call, Throwable t) {
+                    // Gérer les erreurs en cas d'échec de l'appel
+                    Log.e("Tag", "Error onFailure: " + t.toString());
+                    Toast.makeText(getActivity(), "Error: " + t.toString(), Toast.LENGTH_LONG).show();
 
-            }
-        });
+                }
+            });
+        }
+
+        private void loadLieuDetailsFragment(int idlieu) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
+            fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
+            fragmentTransaction.commit();
+        }
+
+
     }
-
-    private void loadLieuDetailsFragment(int idlieu) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
-        fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
-        fragmentTransaction.commit();
-    }
-
-
-}

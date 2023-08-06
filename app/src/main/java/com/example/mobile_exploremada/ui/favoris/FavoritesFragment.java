@@ -12,9 +12,12 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mobile_exploremada.R;
+import com.example.mobile_exploremada.adapter.VideoAdapter;
 import com.example.mobile_exploremada.models.LieuVideoModel;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.response.ImageResponse;
@@ -32,20 +35,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoritesFragment extends Fragment {
-    private VideoView videoView;
-    private TextView tvName;
+    private RecyclerView recyclerView;
+    private VideoAdapter videoAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
-        videoView = view.findViewById(R.id.video_view);
-        tvName = view.findViewById(R.id.tv_name);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        videoAdapter = new VideoAdapter();
+        recyclerView.setAdapter(videoAdapter);
         loadLieuVideosFromApi();
         return view;
     }
-
-
-
 
     private void loadLieuVideosFromApi() {
         VideoService service = Servicey.getVideoService();
@@ -57,22 +59,13 @@ public class FavoritesFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<LieuVideoModel> lieuVideoList = response.body().getLieu();
                     if (lieuVideoList != null && !lieuVideoList.isEmpty()) {
-                        for (LieuVideoModel lieuVideo : lieuVideoList) {
-                            Log.v("Tag","Video" + lieuVideo.getVideo());
-                           tvName.setText(String.valueOf(lieuVideo.getId_lieu()));
-                            MediaController mediaController = new MediaController(getContext());
-                            mediaController.setAnchorView(videoView);
-                            videoView.setMediaController(mediaController);
-                            videoView.setVideoURI(Uri.parse(Credentials.BASE_URL + "uploads/video/" + lieuVideo.getVideo()));
-                            videoView.start();
-                        }
+                        videoAdapter.setVideoList(lieuVideoList);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<VideoResponse> call, Throwable t) {
-                Log.e("Tag", "Error onFailure: " + t.toString());
                 Toast.makeText(getActivity(), "Error: " + t.toString(), Toast.LENGTH_LONG).show();
             }
         });

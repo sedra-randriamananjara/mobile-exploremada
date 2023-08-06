@@ -93,6 +93,7 @@ public class LocationFragment extends Fragment {
             LieuModel lieu = lieux.get(position);
             holder.textViewNom.setText(lieu.getNom());
             holder.textViewDescription.setText(lieu.getDescription_courte());
+            holder.typelieu.setText(lieu.getNom_typelieu() +" - "+lieu.getNom_ville());
             Glide.with(holder.itemView.getContext())
                     .load(BASE_URL + "uploads/lieu/" + lieu.getImage_miniature())
                     .into(holder.imageView);
@@ -109,13 +110,14 @@ public class LocationFragment extends Fragment {
         class LieuViewHolder extends RecyclerView.ViewHolder {
 
             TextView textViewNom;
-            TextView textViewDescription;
+            TextView textViewDescription, typelieu;
             ImageView imageView;
 
             public LieuViewHolder(@NonNull View itemView) {
                 super(itemView);
                 textViewNom = itemView.findViewById(R.id.textViewNom);
                 textViewDescription = itemView.findViewById(R.id.textViewDescription);
+                typelieu = itemView.findViewById(R.id.typelieu);
                 imageView = itemView.findViewById(R.id.imageViewMiniature);
             }
         }
