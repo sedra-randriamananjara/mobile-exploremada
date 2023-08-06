@@ -9,6 +9,8 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.adapter.ImageAdapter;
@@ -16,6 +18,7 @@ import com.example.mobile_exploremada.models.ImageModel;
 import com.example.mobile_exploremada.models.LieuModel;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.response.ImageResponse;
+import com.example.mobile_exploremada.ui.lieu.DetailLieuFragment;
 import com.example.mobile_exploremada.utils.ImageService;
 
 import java.util.ArrayList;
@@ -27,8 +30,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends Fragment  {
     private GridView gridView;
     private ImageAdapter imageAdapter;
+
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_image_grid, container, false);
@@ -36,7 +42,11 @@ public class DiscoverFragment extends Fragment {
         imageAdapter = new ImageAdapter(getActivity());
         gridView.setAdapter(imageAdapter);
         loadImagesFromApi();
-        return view;
+        gridView.setOnItemClickListener((parent, view1, position, id) -> {
+            ImageModel clickedImage = imageAdapter.getItem(position);
+            loadLieuDetailsFragment(clickedImage.getId());
+          });
+          return view;
     }
 
     private void loadImagesFromApi() {
@@ -71,5 +81,14 @@ public class DiscoverFragment extends Fragment {
             }
         });
     }
+
+    private void loadLieuDetailsFragment(int idlieu) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
+        fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
+        fragmentTransaction.commit();
+    }
+
 
 }
