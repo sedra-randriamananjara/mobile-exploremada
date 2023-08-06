@@ -53,7 +53,7 @@ public class SearchFragment extends Fragment {private RecyclerView recyclerView;
 
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerView);
-        lieuAdapter = new LieuAdapter(getActivity());
+        lieuAdapter = new LieuAdapter(getActivity(),requireActivity().getSupportFragmentManager());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(lieuAdapter);
         rechercheEditText = view.findViewById(R.id.editTextRecherche);
