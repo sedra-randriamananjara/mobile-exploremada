@@ -25,6 +25,7 @@ import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.models.*;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.response.*;
+import com.example.mobile_exploremada.ui.place.PlaceFragment;
 import com.example.mobile_exploremada.utils.LieuApi;
 import com.squareup.picasso.Picasso;
 
@@ -133,8 +134,8 @@ public class DetailLieuFragment extends Fragment {
     private void loadPrecedent() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        LocationFragment LocationFragment = new LocationFragment();
-        fragmentTransaction.replace(R.id.fragment_container, LocationFragment);
+        PlaceFragment PlaceFragment = new PlaceFragment();
+        fragmentTransaction.replace(R.id.fragment_container, PlaceFragment);
         fragmentTransaction.commit();  }
     private void information(View view,TextView informationHeader){
         informationHeader.setOnClickListener(new View.OnClickListener() {
