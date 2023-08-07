@@ -25,6 +25,7 @@ import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.models.LieuModel;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.response.LieuResponse;
+import com.example.mobile_exploremada.ui.preference.PreferencesFragment;
 import com.example.mobile_exploremada.ui.splashscreen.login.ui.login.RegisterFragment;
 import com.example.mobile_exploremada.utils.LieuApi;
 
@@ -122,11 +123,12 @@ public class LocationFragment extends Fragment {
             }
         }
         private void loadLieuDetailsFragment(int idlieu) {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
             DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
-            fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
-            fragmentTransaction.commit();  }
+            transaction.replace(R.id.fragment_container, DetaillieuFragment);
+            transaction.addToBackStack(null); // Permet de revenir au fragment précédent en appuyant sur le bouton de retour
+            transaction.commit();
+        }
 
     }
 
