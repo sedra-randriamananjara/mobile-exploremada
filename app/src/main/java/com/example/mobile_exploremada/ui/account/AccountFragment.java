@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import retrofit2.Response;
 
 public class AccountFragment extends Fragment {
 
+    private ProgressBar progressBar;
 
     TextView userDataEmail,userDataContact;
             
@@ -39,6 +41,7 @@ public class AccountFragment extends Fragment {
         TextView userDataTextView = view.findViewById(R.id.userDataTextView);
         userDataEmail = view.findViewById(R.id.userDataEmail);
         userDataContact = view.findViewById(R.id.userDataContact);
+        progressBar = view.findViewById(R.id.progressBar);
         Button btnPreferences = view.findViewById(R.id.btn_preferences);
         Button btnLogout = view.findViewById(R.id.btn_logout);
         fetchUserData(userDataTextView);
@@ -70,6 +73,7 @@ public class AccountFragment extends Fragment {
         return preferences.getString("token", "");
     }
     private void fetchUserData(TextView userDataTextView) {
+        progressBar.setVisibility(View.VISIBLE);
 
         String authToken = getTokenFromSharedPreferences();
 
@@ -106,6 +110,7 @@ public class AccountFragment extends Fragment {
                     String errorMessage = "Erreur lors de la récupération des données de l'utilisateur.";
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -113,6 +118,7 @@ public class AccountFragment extends Fragment {
                 // Afficher un message d'erreur en cas d'échec de la requête
                 String errorMessage = "Erreur réseau : " + t.toString();
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

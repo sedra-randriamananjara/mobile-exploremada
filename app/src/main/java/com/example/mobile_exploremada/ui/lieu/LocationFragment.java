@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 public class LocationFragment extends Fragment {
-    Button btn;
-
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private LieuAdapter lieuAdapter;
 
@@ -67,10 +67,12 @@ public class LocationFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        progressBar = view.findViewById(R.id.progressBar);
         lieuAdapter = new LieuAdapter();
         recyclerView.setAdapter(lieuAdapter);
 
         GetRetrofitResponse();
+
     }
 
     private class LieuAdapter extends RecyclerView.Adapter<LieuAdapter.LieuViewHolder> {
@@ -120,6 +122,7 @@ public class LocationFragment extends Fragment {
                 textViewDescription = itemView.findViewById(R.id.textViewDescription);
                 typelieu = itemView.findViewById(R.id.typelieu);
                 imageView = itemView.findViewById(R.id.imageViewMiniature);
+                progressBar = itemView.findViewById(R.id.progressBar);
             }
         }
         private void loadLieuDetailsFragment(int idlieu) {
@@ -133,6 +136,7 @@ public class LocationFragment extends Fragment {
     }
 
     private void GetRetrofitResponse() {
+        progressBar.setVisibility(View.VISIBLE);
         LieuApi lieuApi = Servicey.getLieuApi();
 
         Call<LieuResponse> responseCall = lieuApi
@@ -154,12 +158,14 @@ public class LocationFragment extends Fragment {
                     Log.v("Tag","Error" + response.errorBody().toString());
                     Toast.makeText(getActivity(), "Error" + response.errorBody().toString(), Toast.LENGTH_LONG).show();
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<LieuResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "Error" + t.toString(), Toast.LENGTH_LONG).show();
                 Log.v("Tag","Error" +t.toString());
+                progressBar.setVisibility(View.GONE);
             }
         });
 

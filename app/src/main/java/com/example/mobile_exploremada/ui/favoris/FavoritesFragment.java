@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -36,12 +37,15 @@ import retrofit2.Response;
 
 public class FavoritesFragment extends Fragment {
     private RecyclerView recyclerView;
+
+    private ProgressBar progressBar;
     private VideoAdapter videoAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
+        progressBar = view.findViewById(R.id.progressBar);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         videoAdapter = new VideoAdapter(getChildFragmentManager());
         recyclerView.setAdapter(videoAdapter);
@@ -50,6 +54,7 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void loadLieuVideosFromApi() {
+        progressBar.setVisibility(View.VISIBLE);
         VideoService service = Servicey.getVideoService();
         Call<VideoResponse> call = service.findAllVideo();
 
@@ -62,11 +67,13 @@ public class FavoritesFragment extends Fragment {
                         videoAdapter.setVideoList(lieuVideoList);
                     }
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<VideoResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "Error: " + t.toString(), Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

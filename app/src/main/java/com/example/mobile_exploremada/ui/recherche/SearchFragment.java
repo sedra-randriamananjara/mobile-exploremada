@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.widget.SearchView;
+
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,8 @@ import retrofit2.Response;
 
 public class SearchFragment extends Fragment {private RecyclerView recyclerView;
     private LieuAdapter lieuAdapter;
+
+    private ProgressBar progressBar;
     private androidx.appcompat.widget.SearchView rechercheEditText;
 //    private SearchView rechercheEditText;
 
@@ -65,6 +69,7 @@ public class SearchFragment extends Fragment {private RecyclerView recyclerView;
         rechercheEditText = view.findViewById(R.id.editTextRecherche); // Remplacer rechercheEditText par searchView
         rechercheEditText.setIconifiedByDefault(false);
         rechercheEditText.setQueryHint(Html.fromHtml("Entrez un nom de lieu ou une ville"));
+        progressBar = view.findViewById(R.id.progressBar);
         setupSearchViewListener();
     }
 
@@ -130,6 +135,7 @@ public class SearchFragment extends Fragment {private RecyclerView recyclerView;
 
 
     private void rechercherLieu(String recherche) {
+        progressBar.setVisibility(View.VISIBLE);
         LieuApi lieuApi = Servicey.getLieuApi();
 
         Call<LieuResponse> responseCall = lieuApi
@@ -138,6 +144,7 @@ public class SearchFragment extends Fragment {private RecyclerView recyclerView;
         responseCall.enqueue(new Callback<LieuResponse>() {
             @Override
             public void onResponse(Call<LieuResponse> call, Response<LieuResponse> response) {
+                progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     List<LieuModel> lieux = new ArrayList<>(response.body().getLieu());
                     updateLieuList(lieux);
@@ -149,6 +156,7 @@ public class SearchFragment extends Fragment {private RecyclerView recyclerView;
 
             @Override
             public void onFailure(Call<LieuResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 // Handle network or request errors
                 Toast.makeText(getActivity(), "Erreur de réseau", Toast.LENGTH_SHORT).show();
             }

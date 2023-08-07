@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -32,11 +33,12 @@ import retrofit2.Response;
 public class DiscoverFragment extends Fragment {
         private GridView gridView;
         private ImageAdapter imageAdapter;
-
+    private ProgressBar progressBar;
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_image_grid, container, false);
             gridView = view.findViewById(R.id.grid_view);
+            progressBar = view.findViewById(R.id.progressBar);
             imageAdapter = new ImageAdapter(getActivity());
             gridView.setAdapter(imageAdapter);
             loadImagesFromApi();
@@ -48,7 +50,7 @@ public class DiscoverFragment extends Fragment {
         }
 
         private void loadImagesFromApi() {
-
+            progressBar.setVisibility(View.VISIBLE);
             ImageService apiService = Servicey.getImageService();
             Call<ImageResponse> call = apiService.getImages();
 
@@ -68,6 +70,7 @@ public class DiscoverFragment extends Fragment {
                         Log.v("Tag", "Error" + response.errorBody().toString());
                         Toast.makeText(getActivity(), "Error else exception" + response.errorBody().toString(), Toast.LENGTH_LONG).show();
                     }
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -75,7 +78,7 @@ public class DiscoverFragment extends Fragment {
                     // Gérer les erreurs en cas d'échec de l'appel
                     Log.e("Tag", "Error onFailure: " + t.toString());
                     Toast.makeText(getActivity(), "Error: " + t.toString(), Toast.LENGTH_LONG).show();
-
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }
