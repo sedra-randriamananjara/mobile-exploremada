@@ -85,6 +85,11 @@ public class LieuAdapter extends RecyclerView.Adapter<LieuAdapter.LieuViewHolder
     }
 
 
+    public LieuModel getItem(int position) {
+        return lieux.get(position);
+    }
+
+
     @Override
     public int getItemCount() {
         return lieux.size();
