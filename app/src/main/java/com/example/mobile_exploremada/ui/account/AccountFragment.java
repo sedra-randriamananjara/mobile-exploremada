@@ -73,7 +73,7 @@ public class AccountFragment extends Fragment {
 
         String authToken = getTokenFromSharedPreferences();
 
-        Toast.makeText(requireContext(), authToken, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(requireContext(), authToken, Toast.LENGTH_SHORT).show();
         // Enregistrer l'intercepteur avec le token d'authentification
         Servicey.addAuthInterceptor(requireContext(),authToken,requireActivity().getSupportFragmentManager());
 

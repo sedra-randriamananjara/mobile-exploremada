@@ -15,11 +15,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="181dp"
+            android:layout_height="222dp"
+            android:src="@drawable/logolight2" />
+        <TextView
+            android:id="@+id/app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="12dp"
+            android:text="Explore Madagascar"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/app_descri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cette application est une application de mise en valeur du potentiel touristique de Madagascar"
+            android:layout_marginBottom="12dp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/app_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="version 1.0"
+            android:layout_marginBottom="17dp"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/userDataTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textAlignment="center"/>
 
@@ -27,6 +62,8 @@
             android:id="@+id/userDataEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold|italic"
             android:textColor="@android:color/black"
             android:textAlignment="center"/>
 
@@ -34,6 +71,9 @@
             android:id="@+id/userDataContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
             android:textColor="@android:color/black"
             android:textAlignment="center" />
 
@@ -52,7 +92,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/action_logout"
+            android:background="@drawable/button_transparent_border"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userDataTextView" />

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -23,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.example.mobile_exploremada.MainActivity;
 import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.models.*;
 import com.example.mobile_exploremada.request.Servicey;
@@ -55,6 +57,8 @@ public class DetailLieuFragment extends Fragment {
     private VideoView VideoDetailVideoView;
 
     private TextView Frais_EntreeView;
+
+    private ProgressBar progressBarDetailLieu;
     public DetailLieuFragment(int idLieu) {
         this.idLieu=idLieu;
     }
@@ -78,6 +82,7 @@ public class DetailLieuFragment extends Fragment {
         heureOuvertureDetailView = view.findViewById(R.id.heureOuvertureDetail);
         Frais_EntreeView = view.findViewById(R.id.textViewFrais_Entree);
         VideoDetailVideoView= view.findViewById(R.id.videoView);
+        progressBarDetailLieu = view.findViewById(R.id.progressBar);
                 getDetailLieu(view,idLieu);
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -88,10 +93,13 @@ public class DetailLieuFragment extends Fragment {
     }
 
     public void getDetailLieu(View view,int idLieu) {
+        progressBarDetailLieu.setVisibility(View.VISIBLE);
+
         LieuApi lieuApi = Servicey.getLieuApi();
         Call<DetailLieuResponse> detailLieuResponseCall = lieuApi
                 .findLieuById(idLieu);
         detailLieuResponseCall.enqueue(new Callback<DetailLieuResponse>() {
+
             @Override
             public void onResponse(Call<DetailLieuResponse> call, Response<DetailLieuResponse> response) {
                 if(response.code() == 200){
@@ -123,11 +131,13 @@ public class DetailLieuFragment extends Fragment {
                     SetImageDetail(idLieu);
                     SetVideoDetail(idLieu);
                     }
+                progressBarDetailLieu.setVisibility(View.GONE);
                 }
             @Override
             public void onFailure(Call<DetailLieuResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "Error" + t.toString(), Toast.LENGTH_LONG).show();
                 Log.v("Tag","Error" +t.toString());
+                progressBarDetailLieu.setVisibility(View.GONE);
             }
 
         });

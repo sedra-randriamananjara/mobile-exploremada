@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.mobile_exploremada.ui.splashscreen.SplashFragment;
 
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
             config.setLocale(locale);
         }
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
