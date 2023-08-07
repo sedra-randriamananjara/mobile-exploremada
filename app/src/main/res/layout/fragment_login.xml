@@ -29,7 +29,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email">
+            android:hint="E-mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
@@ -59,7 +59,7 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Connexion" />
+            android:text="Se connecter" />
 
         <Button
             android:id="@+id/buttonRegister"
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_transparent_border"
-            android:text="S'inscrire" />
+            android:text="Créer un compte" />
 
     </LinearLayout>
 

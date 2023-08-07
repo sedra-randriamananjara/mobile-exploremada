@@ -15,7 +15,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewExplore"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="181dp"
+            android:layout_height="222dp"
+            android:src="@drawable/logolight2" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutName"
@@ -37,7 +44,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email">
+            android:hint="E-mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmailSignup"
@@ -97,14 +104,30 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inscription"/>
+            android:text="S'inscrire"/>
 
-        <TextView
-            android:id="@+id/textViewLoginLink"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/buttonLogin"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_transparent_border"
             android:text="Se connecter" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewExplore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explore Madagascar"
+        android:textSize="12sp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" /> <!-- Sous le LinearLayout -->
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

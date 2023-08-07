@@ -27,7 +27,7 @@ import retrofit2.*;
 
 public class RegisterFragment extends Fragment {
 
-    private Button registerButton;
+    private Button registerButton,buttonLogin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +46,7 @@ public class RegisterFragment extends Fragment {
         EditText confirmPasswordEditText = view.findViewById(R.id.editTextConfirmPasswordSignup);
         EditText contactEditText = view.findViewById(R.id.editTextContact);
         registerButton = view.findViewById(R.id.buttonSignup);
-        TextView loginLink = view.findViewById(R.id.textViewLoginLink);
+        buttonLogin = view.findViewById(R.id.buttonLogin);
 
         // Définir le clic du bouton d'inscription
         registerButton.setOnClickListener(v -> {
@@ -61,14 +61,14 @@ public class RegisterFragment extends Fragment {
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || contact.isEmpty()) {
                 Toast.makeText(requireContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
             } else if (!password.equals(confirmPassword)) {
-                Toast.makeText(requireContext(), "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Les mots de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
             } else {
                 processRegistration(name, email, password, confirmPassword, contact);
             }
         });
 
         // Définir le clic du lien de connexion
-        loginLink.setOnClickListener(v -> {
+        buttonLogin.setOnClickListener(v -> {
             // Charger le fragment de la page de connexion
             loadLoginFragment();
         });

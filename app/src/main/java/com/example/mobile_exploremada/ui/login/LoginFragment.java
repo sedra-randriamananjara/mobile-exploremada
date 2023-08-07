@@ -99,7 +99,7 @@ public class LoginFragment extends Fragment {
                             String token = authResponse.getData();
                             Servicey.addAuthInterceptor(requireContext(),token,requireActivity().getSupportFragmentManager());
                             saveTokenToSharedPreferences(token);
-                            Toast.makeText(requireContext(), "token : "+token, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(requireContext(), "token : "+token, Toast.LENGTH_SHORT).show();
                             // Faites ce que vous voulez avec le token ici
                             showNotification();
                             loadPlaceFragment();
@@ -113,7 +113,7 @@ public class LoginFragment extends Fragment {
                 } else {
                     // Code d'erreur HTTP, gérer les erreurs
                     //Toast.makeText(requireContext(), "Erreur lors de la connexion", Toast.LENGTH_SHORT).show();
-                    showErrorDialog("Une erreur s'est produite : Votre e-mail ou mot de passe incorrecte");
+                    showErrorDialog("Une erreur s'est produite : Votre e-mail ou mot de passe est incorrect.");
                 }
             }
 
@@ -122,7 +122,7 @@ public class LoginFragment extends Fragment {
                 loginButton.setEnabled(true);
                 loginButton.setText("Connexion");
                 //Toast.makeText(requireContext(), "Erreur réseau", Toast.LENGTH_SHORT).show();
-                showErrorDialog("Erreur réseau : Verifier a ce que votre connexion marche");
+                showErrorDialog("Erreur réseau : Vérifiez que votre connexion fonctionne.");
             }
         });
     }
@@ -151,7 +151,7 @@ public class LoginFragment extends Fragment {
 
     private void showNotification() {
         String title = "Allons decouvrir Madagascar";
-        String text = "Bonjour, Bienvenue parmis nous.";
+        String text = "Bonjour, bienvenue parmi nous.";
 
         // Show the notification using NotificationHelper
         NotificationHelper.showNotification(requireContext(), title, text);
