@@ -43,7 +43,7 @@ public class FavoritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        videoAdapter = new VideoAdapter();
+        videoAdapter = new VideoAdapter(getChildFragmentManager());
         recyclerView.setAdapter(videoAdapter);
         loadLieuVideosFromApi();
         return view;

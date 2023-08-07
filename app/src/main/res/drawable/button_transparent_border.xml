@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <item>
+            <shape android:shape="rectangle">
+                <solid android:color="@android:color/transparent" /> <!-- Fond transparent -->
+                <stroke
+                    android:width="2dp"
+                android:color="@color/foret_variant" /> <!-- Couleur de la bordure -->
+                <corners android:radius="10dp" /> <!-- Coins arrondis -->
+            </shape>
+        </item>
+    </layer-list>
+</selector>

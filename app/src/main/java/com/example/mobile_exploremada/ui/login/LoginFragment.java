@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
 
-    private  Button loginButton;
+    private  Button loginButton,buttonRegister;
 
 
     @Override
@@ -45,7 +45,8 @@ public class LoginFragment extends Fragment {
         EditText emailEditText = view.findViewById(R.id.editTextEmail);
         EditText passwordEditText = view.findViewById(R.id.editTextPassword);
         loginButton = view.findViewById(R.id.buttonLogin);
-        TextView signUpLink = view.findViewById(R.id.textViewSignUpLink);
+        buttonRegister = view.findViewById(R.id.buttonRegister);
+//        TextView signUpLink = view.findViewById(R.id.textViewSignUpLink);
 
         String authToken = getTokenFromSharedPreferences();
         if (!authToken.isEmpty()) {
@@ -68,8 +69,8 @@ public class LoginFragment extends Fragment {
 
         });
 
-        // Définir le clic du lien d'inscription
-        signUpLink.setOnClickListener(v -> {
+//        // Définir le clic du lien d'inscription
+        buttonRegister.setOnClickListener(v -> {
             // Charger le fragment de la page d'inscription
             loadRegistrationFragment();
         });

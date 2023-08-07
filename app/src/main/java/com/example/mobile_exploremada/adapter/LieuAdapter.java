@@ -77,10 +77,12 @@ public class LieuAdapter extends RecyclerView.Adapter<LieuAdapter.LieuViewHolder
     }
 
     private void loadLieuDetailsFragment(int idlieu) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         DetailLieuFragment DetaillieuFragment = new DetailLieuFragment(idlieu);
-        fragmentTransaction.replace(R.id.fragment_container, DetaillieuFragment);
-        fragmentTransaction.commit();  }
+        transaction.replace(R.id.fragment_container, DetaillieuFragment);
+        transaction.addToBackStack(null); // Permet de revenir au fragment précédent en appuyant sur le bouton de retour
+        transaction.commit();
+    }
 
 
     @Override

@@ -9,10 +9,13 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_exploremada.R;
 import com.example.mobile_exploremada.models.LieuVideoModel;
+import com.example.mobile_exploremada.ui.lieu.DetailLieuFragment;
 import com.example.mobile_exploremada.utils.Credentials;
 
 import java.util.ArrayList;
@@ -21,6 +24,17 @@ import java.util.List;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
 
     private List<LieuVideoModel> videoList = new ArrayList<>();
+    private OnVideoClickListener onVideoClickListener;
+    private FragmentManager fragmentManager;
+
+    public VideoAdapter(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
+
+    public void setOnVideoClickListener(OnVideoClickListener listener) {
+        this.onVideoClickListener = listener;
+    }
+
 
     public void setVideoList(List<LieuVideoModel> videoList) {
         this.videoList = videoList;
@@ -41,12 +55,36 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         holder.tv_descri.setText(lieuVideo.getDescription_courte());
         holder.ville.setText(lieuVideo.getNom_ville());
 
+        holder.itemView.setOnClickListener(v -> {
+            if (onVideoClickListener != null) {
+                onVideoClickListener.onVideoClick(lieuVideo.getId_lieu());
+            }
+        });
+
         MediaController mediaController = new MediaController(holder.itemView.getContext());
         mediaController.setAnchorView(holder.videoView);
         holder.videoView.setMediaController(mediaController);
         holder.videoView.setVideoURI(Uri.parse(Credentials.BASE_URL + "uploads/video/" + lieuVideo.getVideo()));
         holder.videoView.start();
+        holder.tvName.setOnClickListener(v -> {
+            loadLieuDetailsFragment(lieuVideo.getId_lieu());
+        });
+        holder.tv_descri.setOnClickListener(v -> {
+            loadLieuDetailsFragment(lieuVideo.getId_lieu());
+        });
+        holder.ville.setOnClickListener(v -> {
+            loadLieuDetailsFragment(lieuVideo.getId_lieu());
+        });
     }
+
+    private void loadLieuDetailsFragment(int idlieu) {
+//        FragmentTransaction transaction = FragmentManager.beginTransaction();
+//        DetailLieuFragment detailLieuFragment = new DetailLieuFragment(idlieu);
+//        transaction.replace(R.id.fragment_container, detailLieuFragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+    }
+
 
     @Override
     public int getItemCount() {
@@ -65,5 +103,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
             ville = itemView.findViewById(R.id.ville);
         }
+    }
+    public interface OnVideoClickListener {
+        void onVideoClick(int idlieu);
     }
 }
