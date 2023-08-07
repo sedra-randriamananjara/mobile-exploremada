@@ -2,6 +2,7 @@ package com.example.mobile_exploremada.ui.lieu;
 
 import static com.example.mobile_exploremada.utils.Credentials.BASE_URL;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ import com.example.mobile_exploremada.models.*;
 import com.example.mobile_exploremada.request.Servicey;
 import com.example.mobile_exploremada.response.*;
 import com.example.mobile_exploremada.ui.place.PlaceFragment;
+import com.example.mobile_exploremada.utils.Credentials;
 import com.example.mobile_exploremada.utils.LieuApi;
 import com.squareup.picasso.Picasso;
 
@@ -62,6 +65,8 @@ public class DetailLieuFragment extends Fragment {
     private TextView Frais_EntreeView;
 
     private ProgressBar progressBarDetailLieu;
+
+    private Button share_btn;
     public DetailLieuFragment(int idLieu) {
         this.idLieu=idLieu;
     }
@@ -87,6 +92,7 @@ public class DetailLieuFragment extends Fragment {
         VideoDetailVideoView= view.findViewById(R.id.videoView);
         progressBarDetailLieu = view.findViewById(R.id.progressBar);
                 getDetailLieu(view,idLieu);
+        share_btn = view.findViewById(R.id.share_btn);
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -135,6 +141,13 @@ public class DetailLieuFragment extends Fragment {
                             .into(miniatureImageView);
                     SetImageDetail(idLieu);
                     SetVideoDetail(idLieu);
+
+                    share_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            shareData(lieu);
+                        }
+                    });
                     }
                 progressBarDetailLieu.setVisibility(View.GONE);
                 }
@@ -147,6 +160,23 @@ public class DetailLieuFragment extends Fragment {
 
         });
     }
+
+    public void shareData(LieuModel lieu) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+
+        String subject = "Explore Madagascar : " + lieu.getNom();
+        String text = lieu.getNom() + "<br>" + lieu.getNom_typelieu() + "<br>" + lieu.getNom_ville();
+
+        String formattedText = android.text.Html.fromHtml(text).toString();
+
+        i.putExtra(Intent.EXTRA_SUBJECT, subject);
+        i.putExtra(Intent.EXTRA_TEXT, formattedText);
+
+        startActivity(Intent.createChooser(i, "Choisir le plateforme"));
+    }
+
+
 
     private void loadPrecedent() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

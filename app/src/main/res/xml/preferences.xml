@@ -3,17 +3,17 @@
 
     <ListPreference
         android:key="theme_preference"
-        android:title="App Theme"
-        android:summary="Choose the app theme (light/dark)"
-        android:dialogTitle="Select Theme"
+        android:title="Thème de l'application"
+        android:summary="Choisissez le thème de l'application (clair/foncé)"
+        android:dialogTitle="Sélectionne un thème"
         android:entries="@array/theme_entries"
         android:entryValues="@array/theme_values" />
 
     <ListPreference
         android:key="language_preference"
-        android:title="App Language"
-        android:summary="Choose the app language"
-        android:dialogTitle="Select Language"
+        android:title="Langue de l'application"
+        android:summary="Choisissez la langue de l'application"
+        android:dialogTitle="Sélectionne un thème"
         android:entries="@array/language_entries"
         android:entryValues="@array/language_values" />
 </PreferenceScreen>
