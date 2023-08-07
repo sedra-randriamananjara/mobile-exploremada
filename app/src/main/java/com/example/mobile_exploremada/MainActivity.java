@@ -32,10 +32,13 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
         String languagePreference = sharedPreferences.getString("language_preference", "");
+        if (languagePreference == null || languagePreference.isEmpty()) {
+            languagePreference = "fr";
+        }
         Locale locale = new Locale(languagePreference);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
