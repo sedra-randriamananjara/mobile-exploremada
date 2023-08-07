@@ -5,6 +5,8 @@ import static com.example.mobile_exploremada.utils.Credentials.BASE_URL;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.VideoView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -122,7 +125,9 @@ public class DetailLieuFragment extends Fragment {
                     miniatureImageView = view.findViewById(R.id.imageViewMiniatureDetail);
                     typeLieuTextView.setText(lieu.getNom_typelieu()+" - "+lieu.getNom_ville());
                     ContactDetailView.setText(contact);
-                    descriptionLongueDetailView.setText(lieu.getDescription_longue()+" "+lieu.getAutres_informations());
+//                    CharSequence formattedText = Html.fromHtml(lieu.getDescription_longue());
+                    Spanned formattedText = HtmlCompat.fromHtml(lieu.getDescription_longue(), HtmlCompat.FROM_HTML_MODE_LEGACY);
+                    descriptionLongueDetailView.setText(formattedText);
                     heureOuvertureDetailView.setText(heureOuverture);
                     Frais_EntreeView.setText(fraisEntree);
                     Glide.with(view.getContext())
