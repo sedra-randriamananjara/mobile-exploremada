@@ -43,7 +43,6 @@ public class DetailLieuFragment extends Fragment {
     private int index =0;
     private Handler handler = new Handler();
     private TextView nomLieuTextView;
-    private TextView interludeView;
     private TextView descriptionCourteTextView;
     private ImageView miniatureImageView;
     private TextView typeLieuTextView;
@@ -78,7 +77,6 @@ public class DetailLieuFragment extends Fragment {
         descriptionLongueDetailView = view.findViewById(R.id.textViewDescriptionlongueDetail);
         heureOuvertureDetailView = view.findViewById(R.id.heureOuvertureDetail);
         Frais_EntreeView = view.findViewById(R.id.textViewFrais_Entree);
-        interludeView= view.findViewById(R.id.textViewInterlude);
         VideoDetailVideoView= view.findViewById(R.id.videoView);
                 getDetailLieu(view,idLieu);
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
@@ -98,30 +96,30 @@ public class DetailLieuFragment extends Fragment {
             public void onResponse(Call<DetailLieuResponse> call, Response<DetailLieuResponse> response) {
                 if(response.code() == 200){
                     LieuModel  lieu = response.body().getDetailLieu();
-                    String contact= "Contact: ";
-                    String heureOuverture="heure d'ouverture : ";
-                    String fraisEntree="Frais d'entrée : ";
+                    String contact = "";
+                    String heureOuverture ="";
+                    String fraisEntree ="";
                     if( lieu.getContact()!=null){
-                        contact+=lieu.getContact();
+                        contact= "Contact : "+lieu.getContact();
                     }
                     if( lieu.getFrais_entree()!=null){
-                        fraisEntree+=lieu.getFrais_entree();
+                        fraisEntree="Frais d'entrée : "+lieu.getFrais_entree()+ " ("+ lieu.getRemarque_frais_entree()+")";
                     }
 
                     if( lieu.getHeure_ouverture()!=null){
-                        heureOuverture+=lieu.getHeure_ouverture();
+                        heureOuverture ="Heure d'ouverture : "+lieu.getHeure_ouverture()+ " au "+lieu.getHeure_fermeture()+" ("+lieu.getRemarque_horaire()+")";
                     }
                     nomLieuTextView.setText(lieu.getNom());
-                    descriptionCourteTextView.setText(lieu.getDescription_courte());                    miniatureImageView = view.findViewById(R.id.imageViewMiniatureDetail);
-                    typeLieuTextView.setText(lieu.getNom_typelieu());
+                    descriptionCourteTextView.setText(lieu.getDescription_courte());
+                    miniatureImageView = view.findViewById(R.id.imageViewMiniatureDetail);
+                    typeLieuTextView.setText(lieu.getNom_typelieu()+" - "+lieu.getNom_ville());
                     ContactDetailView.setText(contact);
-                    descriptionLongueDetailView.setText("Description: \n" +lieu.getDescription_longue());
+                    descriptionLongueDetailView.setText(lieu.getDescription_longue()+" "+lieu.getAutres_informations());
                     heureOuvertureDetailView.setText(heureOuverture);
                     Frais_EntreeView.setText(fraisEntree);
                     Glide.with(view.getContext())
                             .load(BASE_URL + "uploads/lieu/" + lieu.getImage_miniature())
                             .into(miniatureImageView);
-                    interludeView.setText("Voici une apercue du site :" );
                     SetImageDetail(idLieu);
                     SetVideoDetail(idLieu);
                     }
@@ -161,7 +159,6 @@ public class DetailLieuFragment extends Fragment {
                     }
                     if (image.isEmpty()) {
                         imageDetailImageView.setVisibility(View.GONE);
-                        interludeView.setVisibility(View.GONE);
                     } else {
                         runnable = new Runnable() {
                             @Override

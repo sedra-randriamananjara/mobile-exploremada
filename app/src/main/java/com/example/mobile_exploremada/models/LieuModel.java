@@ -9,33 +9,51 @@ public class LieuModel implements Parcelable {
     //Lieu Model
     private int id;
     private String nom;
-
+    private String description_longue;
     private String description_courte;
     private String image_miniature;
-    private int id_type_lieu;
-    private String nom_typelieu;
-    private int id_ville;
-    private String nom_ville;
 
-    private String description_longue;
+    private String latitude;
+    private String longitude;
+
     private String heure_ouverture;
+
     private String frais_entree;
+    private String remarque_frais_entree;
+
+
     private String contact;
+private String autres_informations;
+
+    private int id_type_lieu;
+    private int id_ville;
+
+    private String heure_fermeture;
+
+    private String remarque_horaire;
+    private String nom_typelieu;
+    private String nom_ville;
     private String image_detail;
 
-    public LieuModel(int id, String nom, String description_courte, String image_miniature, int id_type_lieu, String nom_typelieu, int id_ville, String nom_ville, String description_longue, String heure_ouverture, String frais_entree, String contact, String image_detail) {
+    public LieuModel(int id, String nom, String description_longue, String description_courte, String image_miniature, String latitude, String longitude, String heure_ouverture, String frais_entree, String remarque_frais_entree, String contact, String autres_informations, int id_type_lieu, int id_ville, String heure_fermeture, String remarque_horaire, String nom_typelieu, String nom_ville, String image_detail) {
         this.id = id;
         this.nom = nom;
+        this.description_longue = description_longue;
         this.description_courte = description_courte;
         this.image_miniature = image_miniature;
-        this.id_type_lieu = id_type_lieu;
-        this.nom_typelieu = nom_typelieu;
-        this.id_ville = id_ville;
-        this.nom_ville = nom_ville;
-        this.description_longue = description_longue;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.heure_ouverture = heure_ouverture;
         this.frais_entree = frais_entree;
+        this.remarque_frais_entree = remarque_frais_entree;
         this.contact = contact;
+        this.autres_informations = autres_informations;
+        this.id_type_lieu = id_type_lieu;
+        this.id_ville = id_ville;
+        this.heure_fermeture = heure_fermeture;
+        this.remarque_horaire = remarque_horaire;
+        this.nom_typelieu = nom_typelieu;
+        this.nom_ville = nom_ville;
         this.image_detail = image_detail;
     }
 
@@ -149,5 +167,85 @@ public class LieuModel implements Parcelable {
         parcel.writeString(nom_typelieu);
         parcel.writeInt(id_ville);
         parcel.writeString(nom_ville);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setDescription_courte(String description_courte) {
+        this.description_courte = description_courte;
+    }
+
+    public void setImage_miniature(String image_miniature) {
+        this.image_miniature = image_miniature;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getRemarque_frais_entree() {
+        return remarque_frais_entree;
+    }
+
+    public void setRemarque_frais_entree(String remarque_frais_entree) {
+        this.remarque_frais_entree = remarque_frais_entree;
+    }
+
+    public String getAutres_informations() {
+        return autres_informations;
+    }
+
+    public void setAutres_informations(String autres_informations) {
+        this.autres_informations = autres_informations;
+    }
+
+    public void setId_type_lieu(int id_type_lieu) {
+        this.id_type_lieu = id_type_lieu;
+    }
+
+    public void setId_ville(int id_ville) {
+        this.id_ville = id_ville;
+    }
+
+    public String getHeure_fermeture() {
+        return heure_fermeture;
+    }
+
+    public void setHeure_fermeture(String heure_fermeture) {
+        this.heure_fermeture = heure_fermeture;
+    }
+
+    public String getRemarque_horaire() {
+        return remarque_horaire;
+    }
+
+    public void setRemarque_horaire(String remarque_horaire) {
+        this.remarque_horaire = remarque_horaire;
+    }
+
+    public void setNom_typelieu(String nom_typelieu) {
+        this.nom_typelieu = nom_typelieu;
+    }
+
+    public void setNom_ville(String nom_ville) {
+        this.nom_ville = nom_ville;
     }
 }
